@@ -1,6 +1,8 @@
+/* eslint-disable simple-import-sort/imports */
 import clsx from 'clsx';
 import { m, useAnimationControls } from 'framer-motion';
 import Image from 'next/image';
+import { useTranslation } from 'react-i18next';
 
 const animation = {
   hide: { x: -32, opacity: 0 },
@@ -12,6 +14,8 @@ const animation = {
 
 function HeaderTitle() {
   const controls = useAnimationControls();
+
+  const { i18n, t } = useTranslation('common');
 
   return (
     <div>
@@ -70,10 +74,11 @@ function HeaderTitle() {
         >
           I&apos;m{' '}
           <strong className={clsx('text-accent-600', 'dark:text-accent-500')}>
-            Enji
+            Genny {t('welcome')}
           </strong>{' '}
-          Kusnadi,{' '}
+          Dev,{' '}
         </m.span>
+
         <m.h1
           className={clsx(
             'block text-base text-slate-600',
@@ -91,11 +96,18 @@ function HeaderTitle() {
               'dark:text-slate-300'
             )}
           >
-            Front-End Developer
+            Fullstack Developer
           </strong>{' '}
           who loves intuitive,{' '}
           <span className={clsx('block')}>clean and modern UI design.</span>
         </m.h1>
+        <div className={clsx('flex w-full items-start justify-start')}>
+          <div className="text-container">
+            <p className="generate-text">
+              I &apos;m very keen of coding and learning!
+            </p>
+          </div>
+        </div>
       </span>
     </div>
   );

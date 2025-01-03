@@ -6,6 +6,8 @@ import { DarkIcon, EyeIcon, EyeSlash, LightIcon } from '@/components/Icons';
 
 import useFocusMode from '@/hooks/useFocusMode';
 
+import LanguageSwitcher from './wigets/SwitchLanguage';
+
 import type { PropsWithChildren, ReactElement } from 'react';
 
 const animation = {
@@ -141,6 +143,7 @@ function ActionCenter() {
             }
           />
         </m.div>
+        <LanguageSwitcher />
       </div>
     </m.div>
   );

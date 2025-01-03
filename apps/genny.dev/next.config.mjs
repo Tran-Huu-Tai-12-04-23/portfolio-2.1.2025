@@ -2,6 +2,7 @@ import bundeAnalyzer from '@next/bundle-analyzer';
 import nextMDX from '@next/mdx';
 import rehypePlugins from 'rehype-plugins';
 import remarkPlugins from 'remark-plugins';
+import nextI18NextConfig from './next-i18next.config.js';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -19,6 +20,7 @@ const nextConfig = {
   ],
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
   reactStrictMode: true,
+  i18n: nextI18NextConfig.i18n,
 };
 
 const withBundleAnalyzer = bundeAnalyzer({

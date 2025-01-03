@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
 
 import { GitHubIcon, TwitterIcon } from '@/components/Icons';
 import NavIcon from '@/components/navigations/NavIcon';
@@ -10,16 +11,16 @@ import NavLogo from '@/components/navigations/NavLogo';
 
 import useOnScroll from '@/hooks/useOnScroll';
 
-const workLinks = [
-  { title: 'Skills & Tools', href: '/work/skills-and-tools' },
-  { title: 'Experience', href: '/work/experience' },
-  { title: 'Studio', href: '/work/studio' },
-  { title: 'Contact', href: '/work/contact' },
-];
-
 function Navbar() {
   const isScrolled = useOnScroll(0);
-
+  const { t, i18n } = useTranslation('common');
+  console.log(t('header.skill_tool'));
+  const workLinks = [
+    { title: t('header.skill_tool'), href: '/work/skills-and-tools' },
+    { title: t('header.experience'), href: '/work/experience' },
+    { title: t('header.work'), href: '/work/studio' },
+    { title: t('header.contact'), href: '/work/contact' },
+  ];
   return (
     <header
       className={clsx('fixed left-0 right-0 top-0 z-[1000]', 'fm:absolute')}
@@ -67,14 +68,14 @@ function Navbar() {
           <ul className={clsx('flex items-center')}>
             <li className={clsx('hidden', 'sm:block')}>
               <NavIcon
-                href="https://twitter.com/enjidev"
+                href="https://twitter.com/Gennydev"
                 icon={<TwitterIcon className={clsx('h-5 w-5')} />}
                 title="Twitter"
               />
             </li>
             <li className={clsx('hidden', 'sm:block')}>
               <NavIcon
-                href="https://github.com/enjidev"
+                href="https://github.com/Gennydev"
                 icon={<GitHubIcon className={clsx('h-5 w-5')} />}
                 title="GitHub"
               />

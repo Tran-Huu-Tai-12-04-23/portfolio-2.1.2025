@@ -1,10 +1,15 @@
+import dynamic from 'next/dynamic';
+
 import Footer from '@/components/Footer';
-import Navigation from '@/components/Navigation';
 import QuickAccess from '@/components/QuickAccess';
 import Shortcuts from '@/components/Shortcuts';
 import Toaster from '@/components/Toaster';
 
 import type { PropsWithChildren } from 'react';
+
+const Navigation = dynamic(() => import('@/components/Navigation'), {
+  ssr: false,
+});
 
 function WithNavigationFooter({ children }: PropsWithChildren) {
   return (
