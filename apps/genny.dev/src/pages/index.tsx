@@ -1,6 +1,9 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import Head from '@/components/meta/Head';
+
+import { useTranslate } from '@/hooks/useTranslate';
 
 import { getBaseUrl } from '@/helpers/url';
 
@@ -12,11 +15,12 @@ type Props = {
   // Add custom props here
 };
 function Index() {
+  const { t } = useTranslate();
   return (
     <>
       <Head
-        title="Genny Dev · Fullstack Developer"
-        description="An online portfolio featuring a showcase of my projects and some thoughts as a Fullstack Developer who loves intuitive, clean and modern UI design."
+        title={t('meta.title')}
+        description={t('meta.description')}
         ogImage={`${getBaseUrl()}/assets/images/og-image.png`}
         overrideTitle
       />

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { appWithTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -11,7 +12,13 @@ import type { AppProps } from 'next/app';
 import type { ReactElement, ReactNode } from 'react';
 
 import '@/styles/main.css';
+
 /// load static translations
+export const getStaticProps: GetStaticProps<any> = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale ?? 'en', ['common', 'home'])),
+  },
+});
 
 type NextPageWithLayout<P = object, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -48,8 +55,3 @@ function App({ Component, pageProps, router }: AppPropsWithLayout) {
 }
 
 export default appWithTranslation(App);
-export const getStaticProps: GetStaticProps<any> = async ({ locale }) => ({
-  props: {
-    ...(await serverSideTranslations(locale ?? 'en', ['common', 'home'])),
-  },
-});

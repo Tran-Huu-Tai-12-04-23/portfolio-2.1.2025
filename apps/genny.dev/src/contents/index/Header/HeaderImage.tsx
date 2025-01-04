@@ -54,7 +54,7 @@ function HeaderImage() {
           >
             <Image
               alt="Genny Dev Illustration"
-              src="/assets/images/me.svg"
+              src="/assets/images/me.png"
               width={350}
               height={526}
               className={clsx(

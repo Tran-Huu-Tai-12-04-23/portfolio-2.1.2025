@@ -3,6 +3,7 @@ import { m } from 'framer-motion';
 import Link from 'next/link';
 
 import useContentActivity from '@/hooks/useContentActivity';
+import { useTranslate } from '@/hooks/useTranslate';
 
 import { relativeTime } from '@/helpers/date';
 
@@ -109,6 +110,7 @@ interface ActivityProps {
 
 function Activity({ onItemClick = () => {} }: ActivityProps) {
   const { data, isLoading } = useContentActivity();
+  const { t } = useTranslate();
 
   const renderData = () => {
     if (isLoading) {
@@ -117,7 +119,7 @@ function Activity({ onItemClick = () => {} }: ActivityProps) {
           className={clsx('text-sm text-slate-700', 'dark:text-slate-400')}
           variants={animation}
         >
-          retrieving data..
+          {t('actionCenter.retrieving')}
         </m.div>
       );
     }
@@ -128,7 +130,7 @@ function Activity({ onItemClick = () => {} }: ActivityProps) {
           className={clsx('text-sm text-slate-700', 'dark:text-slate-400')}
           variants={animation}
         >
-          nothing new at the moment.
+          {t('actionCenter.nothingNewAtThe')}
         </m.div>
       );
     }
@@ -139,7 +141,7 @@ function Activity({ onItemClick = () => {} }: ActivityProps) {
           className={clsx('text-sm text-slate-700', 'dark:text-slate-400')}
           variants={animation}
         >
-          an internal error occurred.
+          {t('actionCenter.anInternetError')}
         </m.div>
       );
     }
@@ -188,7 +190,7 @@ function Activity({ onItemClick = () => {} }: ActivityProps) {
       className={clsx('flex flex-1 flex-col gap-2')}
     >
       <m.div variants={animation} className={clsx('px-2 text-xl font-bold')}>
-        Recent Activities
+        {t('actionCenter.recentActivity')}
       </m.div>
       <div
         className={clsx(

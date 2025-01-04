@@ -22,10 +22,11 @@ export function SectionButton({
       type="button"
       className={clsx(
         'flex flex-1 items-center gap-4 rounded-2xl border-2 bg-white px-4 py-4 text-left',
-        'dark:bg-slate-900',
+        'cursor-pointer dark:bg-slate-900',
         active
           ? ['border-accent-400', 'dark:border-accent-400']
-          : ['border-divider-light', 'dark:border-divider-dark']
+          : ['border-divider-light', 'dark:border-divider-dark'],
+        'cursor-pointer hover:bg-black/10'
       )}
       onClick={onClick}
     >
@@ -45,7 +46,7 @@ export function SectionButton({
       <span className={clsx('flex-1')}>
         <span
           className={clsx(
-            'block font-bold',
+            'block font-bold capitalize',
             active
               ? ['text-accent-600', 'dark:text-accent-400']
               : ['text-slate-700', 'dark:text-slate-200']

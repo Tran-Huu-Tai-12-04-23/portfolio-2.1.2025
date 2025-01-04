@@ -1,6 +1,11 @@
 import clsx from 'clsx';
+import dayjs from 'dayjs';
+import Image from 'next/image';
 
 import { CalendarIcon } from '@/components/Icons';
+import { LinkPreview } from '@/components/link-preview';
+
+import { IContent } from '../GithubRepoLst';
 
 export type TodoItemState = 'spacing' | 'typography' | 'colors' | 'effects';
 
@@ -11,6 +16,7 @@ interface TodoItemProps {
   date?: string;
   tag1?: string;
   tag2?: string;
+  data: IContent;
 }
 
 function TodoItem({
@@ -20,11 +26,12 @@ function TodoItem({
   date = '10:00 AM · Tomorrow',
   tag1 = 'Docs',
   tag2 = 'Support',
+  data,
 }: TodoItemProps) {
   return (
     <div
       className={clsx(
-        'pointer-events-none w-full select-none border p-6',
+        'w-full select-none border p-6',
         'lg:w-96',
         state.includes('effects') && ['rounded-xl'],
         state.includes('spacing') && [''],
@@ -44,38 +51,30 @@ function TodoItem({
           state.includes('spacing') && ['mb-4 justify-between']
         )}
       >
-        <div className={clsx('flex')}>
-          <div
-            className={clsx(
-              'relative flex h-8 w-8 items-center justify-center',
-              state.includes('effects') && ['rounded-full'],
-              state.includes('spacing') && [''],
-              state.includes('typography') && ['font-bold'],
-              state.includes('colors')
-                ? ['border-white bg-sky-400 text-white']
-                : [
-                    'border-white bg-[#050914] text-white',
-                    'dark:bg-white dark:text-black',
-                  ]
-            )}
-          >
-            E
-          </div>
-        </div>
+        <Image
+          src={data?.owner?.avatar_url}
+          alt={title}
+          width={40}
+          height={40}
+          className="scale-125 rounded-full"
+        />
         <div
           className={clsx(
             state.includes('effects') && ['rounded-full'],
             state.includes('spacing') && ['px-2 py-0.5'],
             state.includes('typography') && ['text-xs font-bold'],
-            state.includes('colors')
+            !data?.private
               ? [
+                  'bg-green-100 text-green-800',
+                  'dark:bg-green-500/20 dark:text-green-300',
+                ]
+              : [
                   'bg-red-100 text-red-800',
                   'dark:bg-red-500/20 dark:text-red-300',
                 ]
-              : ['bg-[#ff0000] text-white']
           )}
         >
-          High
+          {data?.private ? 'Private' : 'Public'}
         </div>
       </div>
       <div
@@ -84,7 +83,8 @@ function TodoItem({
           state.includes('typography') && ['text-lg font-bold'],
           state.includes('colors')
             ? ['text-slate-700', 'dark:text-slate-300']
-            : ['text-black', 'dark:text-white']
+            : ['text-black', 'dark:text-white'],
+          'capitalize'
         )}
       >
         {title}
@@ -139,6 +139,7 @@ function TodoItem({
           {tag2}
         </div>
       </div>
+      REPO:{' '}
       <div
         className={clsx(
           'flex items-center',
@@ -147,6 +148,29 @@ function TodoItem({
           state.includes('colors') && ['']
         )}
       >
+        {data?.html_url ? (
+          <LinkPreview
+            url={data.html_url}
+            imageSrc={data.html_url}
+            isStatic
+            className="font-bold"
+          >
+            {data.html_url}
+          </LinkPreview>
+        ) : (
+          'No repository available'
+        )}
+      </div>
+      <div
+        className={clsx(
+          'flex items-center',
+          state.includes('spacing') && ['gap-1'],
+          state.includes('typography') && ['text-xs font-medium'],
+          state.includes('colors') && [''],
+          'mt-5'
+        )}
+      >
+        Ngày tạo:{' '}
         <CalendarIcon
           className={clsx(
             'h-4 w-4',
@@ -166,7 +190,7 @@ function TodoItem({
               : ['text-black', 'dark:text-white']
           )}
         >
-          {date}
+          {dayjs(data?.created_at).format('DD/MM/YYYY')}
         </div>
       </div>
     </div>

@@ -11,6 +11,8 @@ import {
   VSCodeIcon,
 } from '@/components/Icons';
 
+import { useTranslate } from '@/hooks/useTranslate';
+
 const animation = {
   hide: { x: -8, opacity: 0 },
   show: {
@@ -20,6 +22,7 @@ const animation = {
 };
 
 function HeaderTechStack() {
+  const { t } = useTranslate();
   return (
     <div>
       <m.p
@@ -28,7 +31,7 @@ function HeaderTechStack() {
         animate={animation.show}
         transition={{ delay: 0.6 }}
       >
-        current favorite tech stack/tools:
+        {t('home.currentToolFa')}
       </m.p>
       <m.ul
         className={clsx(

@@ -3,17 +3,22 @@ import dynamic from 'next/dynamic';
 
 import { CodeIcon, HeartIcon, SparklesIcon } from '@/components/Icons';
 
-import CleanIntuitive from '@/contents/index/CleanIntuitive';
+import { useTranslate } from '@/hooks/useTranslate';
+
 import DetailOriented from '@/contents/index/DetailOriented';
 import FeaturedCard from '@/contents/index/FeaturedCard';
 import PrettyOptimized from '@/contents/index/PrettyOptimized';
-import Quote from '@/contents/index/Quote';
+
+import { GithubOrgs } from './GithubOrgs';
+import GithubRepoLst from './GithubRepoLst';
+import UserCommitChartAll from './UserCommitAll';
 
 const Header = dynamic(() => import('@/contents/index/Header'), {
   ssr: false,
 });
 
 function FeaturedCardSection() {
+  const { t } = useTranslate();
   return (
     <div className={clsx('content-wrapper')}>
       <div className={clsx('flex flex-col gap-4', 'lg:flex-row lg:gap-8')}>
@@ -28,8 +33,8 @@ function FeaturedCardSection() {
               <SparklesIcon className={clsx('h-5 w-5 text-white')} />
             </div>
           }
-          title="Clean & Intuitive"
-          desc="Keep the UI clean with a modern touch without compromising UX."
+          title={t('home.cleanAIntuitive')}
+          desc={t('home.cleanInDesc')}
         />
         <FeaturedCard
           icon={
@@ -42,8 +47,8 @@ function FeaturedCardSection() {
               <HeartIcon className={clsx('h-5 w-5 text-white')} />
             </div>
           }
-          title="Detail Oriented"
-          desc="Awareness to ease of access, UI consistency, and improved UX."
+          title={t('home.oriented')}
+          desc={t('home.orientedDesc')}
         />
         <FeaturedCard
           icon={
@@ -56,19 +61,9 @@ function FeaturedCardSection() {
               <CodeIcon className={clsx('h-5 w-5 text-white')} />
             </div>
           }
-          title="Pretty & Optimized"
-          desc="Writing clean code is a top priority while keeping it as optimized as possible."
+          title={t('home.optimized')}
+          desc={t('home.optimizedDesc')}
         />
-      </div>
-    </div>
-  );
-}
-
-function QuoteSection() {
-  return (
-    <div className={clsx('content-wrapper')}>
-      <div className={clsx('flex items-center justify-center py-8')}>
-        <Quote />
       </div>
     </div>
   );
@@ -81,11 +76,14 @@ function IndexContents() {
       <div className={clsx('hidden', 'lg:-mt-16 lg:mb-24 lg:block')}>
         <FeaturedCardSection />
       </div>
-      <div className={clsx('-mt-12 mb-12', 'md:mb-24 md:mt-0')}>
-        <QuoteSection />
-      </div>
       <section className={clsx('mb-12', 'lg:mb-24')}>
-        <CleanIntuitive />
+        <GithubOrgs />
+      </section>
+      <section className={clsx('mb-12', 'lg:mb-24')}>
+        <GithubRepoLst />
+      </section>
+      <section className={clsx('mb-12', 'lg:mb-24')}>
+        <UserCommitChartAll />
       </section>
       <section className={clsx('mb-12', 'lg:mb-24')}>
         <DetailOriented />

@@ -4,10 +4,12 @@ import { QuickAccessIcon } from '@/components/Icons';
 import Kbd from '@/components/Kbd';
 
 import useGlobal from '@/hooks/useGlobal';
+import { useTranslate } from '@/hooks/useTranslate';
 
 function NavIconQuickAccess() {
   const { setQuickAccessOpen } = useGlobal();
 
+  const { t } = useTranslate();
   return (
     <button
       type="button"
@@ -17,8 +19,8 @@ function NavIconQuickAccess() {
         'hover:bg-slate-300/70 sm:ml-0',
         'dark:bg-slate-800/50 dark:text-slate-100 dark:hover:bg-slate-700/50'
       )}
-      aria-label="Open Quick Access"
-      title="Open Quick Access"
+      aria-label={t('actionCenter.openQuickAccess')}
+      title={t('actionCenter.openQuickAccess')}
       onClick={() => {
         setQuickAccessOpen(true);
       }}
@@ -31,7 +33,7 @@ function NavIconQuickAccess() {
           'dark:font-normal'
         )}
       >
-        Quick Access
+        {t('header.quickAccess')}
         <Kbd>Q</Kbd>
       </div>
     </button>

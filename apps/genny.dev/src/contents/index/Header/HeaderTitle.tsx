@@ -1,8 +1,9 @@
 /* eslint-disable simple-import-sort/imports */
+import { useTranslate } from '@/hooks/useTranslate';
 import clsx from 'clsx';
 import { m, useAnimationControls } from 'framer-motion';
 import Image from 'next/image';
-import { useTranslation } from 'react-i18next';
+// eslint-disable-next-line import/no-extraneous-dependencies
 
 const animation = {
   hide: { x: -32, opacity: 0 },
@@ -14,8 +15,7 @@ const animation = {
 
 function HeaderTitle() {
   const controls = useAnimationControls();
-
-  const { i18n, t } = useTranslation('common');
+  const { t } = useTranslate();
 
   return (
     <div>
@@ -29,7 +29,7 @@ function HeaderTitle() {
         animate={animation.show}
         transition={{ delay: 0.1 }}
       >
-        hi!
+        {t('home.greet')}
         <m.div
           initial={{
             opacity: 0,
@@ -72,11 +72,11 @@ function HeaderTitle() {
           animate={animation.show}
           transition={{ delay: 0.2 }}
         >
-          I&apos;m{' '}
+          {t('home.nameStart')}
           <strong className={clsx('text-accent-600', 'dark:text-accent-500')}>
-            Genny {t('welcome')}
+            {t('home.nameMiddle')}
           </strong>{' '}
-          Dev,{' '}
+          {t('home.nameEnd')}{' '}
         </m.span>
 
         <m.h1
@@ -89,23 +89,11 @@ function HeaderTitle() {
           animate={animation.show}
           transition={{ delay: 0.3 }}
         >
-          <span className={clsx('lowercase')}>A</span>{' '}
-          <strong
-            className={clsx(
-              'font-bold lowercase text-slate-700',
-              'dark:text-slate-300'
-            )}
-          >
-            Fullstack Developer
-          </strong>{' '}
-          who loves intuitive,{' '}
-          <span className={clsx('block')}>clean and modern UI design.</span>
+          <strong>{t('home.nameStart')}</strong> {t('home.description')}
         </m.h1>
         <div className={clsx('flex w-full items-start justify-start')}>
           <div className="text-container">
-            <p className="generate-text">
-              I &apos;m very keen of coding and learning!
-            </p>
+            <p className="generate-text">{t('home.favorite')}</p>
           </div>
         </div>
       </span>

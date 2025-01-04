@@ -8,6 +8,8 @@ import {
   TwitterIcon,
 } from '@/components/Icons';
 
+import { useTranslate } from '@/hooks/useTranslate';
+
 import dayjs from '@/utils/dayjs';
 
 function LastUpdate() {
@@ -101,6 +103,7 @@ function FooterGroup({ title, links }: FooterGroupProps) {
 }
 
 function FooterDescription() {
+  const { t } = useTranslate();
   return (
     <div className={clsx('max-w-[348px]')}>
       <div
@@ -109,11 +112,10 @@ function FooterDescription() {
           'dark:text-slate-400'
         )}
       >
-        About Me
+        {t('header.aboutMe')}
       </div>
       <p className={clsx('mb-4 font-normal leading-relaxed')}>
-        I&apos;m Genny, a <strong>Fullstack Developer</strong> who loves
-        intuitive, clean and modern UI design.
+        <strong> {t('footer.aboutMeDesc')}</strong>
       </p>
       <ul className={clsx('-ml-2 flex gap-1')}>
         <li>
@@ -158,6 +160,7 @@ function FooterDescription() {
 }
 
 function Footer() {
+  const { t } = useTranslate();
   return (
     <footer
       className={clsx(
@@ -179,57 +182,52 @@ function Footer() {
             >
               <div className={clsx('flex', 'sm:gap-16')}>
                 <FooterGroup
-                  title="Work"
+                  title={t('footer.work')}
                   links={[
-                    { title: 'Contact', href: '/work/contact' },
-                    { title: 'Experience', href: '/work/experience' },
+                    { title: t('footer.contact'), href: '/work/contact' },
+                    { title: t('footer.experience'), href: '/work/experience' },
                     {
-                      title: 'Services',
+                      title: t('footer.services'),
                       href: '/work/services',
                       label: 'soon',
                     },
                     {
-                      title: 'Skills and Tools',
+                      title: t('footer.skillTool'),
                       href: '/work/skills-and-tools',
                     },
-                    { title: 'Studio', href: '/work/studio' },
+                    { title: t('footer.studio'), href: '/work/studio' },
                   ]}
                 />
                 <FooterGroup
-                  title="Learn"
+                  title={t('footer.learn')}
                   links={[
                     {
-                      title: 'Docs',
+                      title: t('footer.learn'),
                       href: '/docs',
                     },
                     {
-                      title: 'Personal Blog',
+                      title: t('footer.personalBlog'),
                       href: '/blog',
-                    },
-                    {
-                      title: 'T.I.L',
-                      href: '/today-i-learned',
-                      label: 'new',
                     },
                   ]}
                 />
               </div>
               <div className={clsx('flex', 'sm:gap-16')}>
                 <FooterGroup
-                  title="This Site"
+                  title={t('footer.thisSite')}
                   links={[
                     {
-                      title: 'Design Concept',
+                      title: t('footer.designConcept'),
                       href: 'https://www.figma.com/community/file/1176392613303840973',
                       isInternal: false,
                     },
                     {
-                      title: 'Source Code',
+                      title: t('footer.sourceCode'),
                       href: 'https://github.com/Gennydev/genny.dev',
                       isInternal: false,
                     },
                     {
-                      title: 'Credits',
+                      title: t('footer.credits'),
                       href: '/credits',
                     },
                   ]}

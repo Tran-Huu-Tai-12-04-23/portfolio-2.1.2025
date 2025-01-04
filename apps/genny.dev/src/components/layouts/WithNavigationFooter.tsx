@@ -1,4 +1,5 @@
-import dynamic from 'next/dynamic';
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable simple-import-sort/imports */
 
 import Footer from '@/components/Footer';
 import QuickAccess from '@/components/QuickAccess';
@@ -6,10 +7,7 @@ import Shortcuts from '@/components/Shortcuts';
 import Toaster from '@/components/Toaster';
 
 import type { PropsWithChildren } from 'react';
-
-const Navigation = dynamic(() => import('@/components/Navigation'), {
-  ssr: false,
-});
+import Navigation from '../Navigation';
 
 function WithNavigationFooter({ children }: PropsWithChildren) {
   return (

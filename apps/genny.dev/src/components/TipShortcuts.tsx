@@ -5,27 +5,7 @@ import { Fragment } from 'react';
 import { KeyboardIcon } from '@/components/Icons';
 import Kbd from '@/components/Kbd';
 
-const shortcuts: Array<{
-  title: string;
-  keys: Array<string>;
-}> = [
-  {
-    title: 'Open Quick Access',
-    keys: ['Q'],
-  },
-  {
-    title: 'Close Quick Access',
-    keys: ['Q', 'Esc'],
-  },
-  {
-    title: 'Toggle Dark Mode',
-    keys: ['D'],
-  },
-  {
-    title: 'Toggle Focus',
-    keys: ['F'],
-  },
-];
+import { useTranslate } from '@/hooks/useTranslate';
 
 const animation = {
   hide: { x: -24, opacity: 0 },
@@ -40,6 +20,29 @@ const animation = {
 };
 
 function TipShortcuts() {
+  const { t } = useTranslate();
+
+  const shortcuts: Array<{
+    title: string;
+    keys: Array<string>;
+  }> = [
+    {
+      title: t('actionCenter.openQuickAccess'),
+      keys: ['Q'],
+    },
+    {
+      title: t('actionCenter.closeQuickAccess'),
+      keys: ['Q', 'Esc'],
+    },
+    {
+      title: t('actionCenter.toggleDarkMode'),
+      keys: ['D'],
+    },
+    {
+      title: t('actionCenter.toggleFocus'),
+      keys: ['F'],
+    },
+  ];
   return (
     <m.div
       initial="hide"
@@ -49,10 +52,10 @@ function TipShortcuts() {
     >
       <div className={clsx('mb-4 flex items-center gap-4 text-xl font-bold')}>
         <KeyboardIcon className={clsx('h-8 w-8')} />
-        TIP: Shortcuts
+        {t('actionCenter.tip')}: {t('actionCenter.suggest')}
       </div>
       <p className={clsx('mb-4 text-sm text-slate-700', 'dark:text-slate-400')}>
-        Navigate the site with ease using keyboard shortcuts.
+        {t('actionCenter.tipContent')}
       </p>
       <div className={clsx('flex flex-col text-[13px]')}>
         {shortcuts.map(({ title, keys }) => (

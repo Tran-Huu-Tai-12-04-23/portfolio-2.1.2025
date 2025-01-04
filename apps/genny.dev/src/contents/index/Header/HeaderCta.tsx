@@ -4,6 +4,8 @@ import Link from 'next/link';
 
 import { DocumentIcon } from '@/components/Icons';
 
+import { useTranslate } from '@/hooks/useTranslate';
+
 const animation = {
   hide: {
     x: -16,
@@ -21,6 +23,7 @@ interface HeaderCtaProps {
 }
 
 function ButtonContactMe() {
+  const { t } = useTranslate();
   return (
     <div className="fui-button-book-now">
       <Link
@@ -72,13 +75,14 @@ function ButtonContactMe() {
             fill="currentColor"
           />
         </svg>
-        Get in touch
+        {t('home.getInTouch')}
       </Link>
     </div>
   );
 }
 
 function ButtonResume() {
+  const { t } = useTranslate();
   return (
     <a
       target="_blank"
@@ -87,7 +91,7 @@ function ButtonResume() {
       className={clsx('button button--ghost px-2', 'md:button--big md:px-2')}
     >
       <DocumentIcon className={clsx('h-5 w-5')} />
-      RESUME
+      {t('home.resume')}
     </a>
   );
 }

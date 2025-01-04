@@ -21,6 +21,9 @@ const nextConfig = {
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
   reactStrictMode: true,
   i18n: nextI18NextConfig.i18n,
+  images: {
+    domains: ['avatars.githubusercontent.com', 'github.com'],
+  },
 };
 
 const withBundleAnalyzer = bundeAnalyzer({

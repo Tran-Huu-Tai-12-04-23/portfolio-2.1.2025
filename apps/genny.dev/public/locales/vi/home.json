@@ -1,15 +1,21 @@
 {
+  "meta": {
+    "title": "Genny Dev - Kỹ sư phần mềm, Nhà phát triển web, Người đam mê công nghệ",
+    "description": "Genny Dev - Kỹ sư phần mềm, Nhà phát triển web, Người đam mê công nghệ. Tôi là Genny, một Nhà phát triển Fullstack yêu thích thiết kế giao diện người dùng trực quan, sạch sẽ và hiện đại."
+  },
   "header": {
     "projects": "Dự án",
     "blog": "Bài viết",
     "experience": "Kinh nghiệm",
     "work": "Công việc",
+    "aboutMe": "Về tôi",
     "skill_tool": "Kỹ năng & Công cụ",
     "contact": "Liên hệ",
     "myFavorite": "Yêu thích của tôi",
     "quickAccess": "Truy cập nhanh"
   },
   "actionCenter": {
+    "title": "Trung tâm hành động",
     "darkMode": "Chế độ tối",
     "lightMode": "Chế độ sáng",
     "on": "Bật",
@@ -19,17 +25,23 @@
     "vietnamese": "Tiếng Việt",
     "english": "Tiếng Anh",
     "tip": "Mẹo",
+    "suggest": "Gợi ý",
     "tipContent": "Dễ dàng điều hướng trang web bằng các phím tắt.",
     "openQuickAccess": "Mở Truy cập nhanh",
     "closeQuickAccess": "Đóng Truy cập nhanh",
     "toggleDarkMode": "Chuyển đổi Chế độ tối",
-    "toggleFocus": "Chuyển đổi Tập trung"
+    "toggleFocus": "Chuyển đổi Tập trung",
+    "nothingNewAtThe": "Chưa có hoạt động nào gần đây.",
+    "recentActivity": "Hoạt động gần đây.",
+    "retrieving": "Đang tải...",
+    "anInternetError": " đã xảy ra lỗi nội bộ."
   },
   "home": {
     "greet": "Chào!",
     "nameStart": "Tôi là ",
     "nameMiddle": "Genny",
     "nameEnd": "Dev,",
+    "role": "Kỹ sư phần mềm",
     "description": "một kỹ sư phần mềm, một nhà phát triển web, và một người đam mê công nghệ.",
     "favorite": "Tôi rất thích lập trình và học hỏi!",
     "getInTouch": "Liên hệ",
