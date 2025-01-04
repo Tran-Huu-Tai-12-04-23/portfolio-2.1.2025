@@ -1,6 +1,8 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-await-in-loop */
-// eslint-disable-next-line import/no-extraneous-dependencies
+// eslint-disable-next-line import/no-extraneous-dependencies, simple-import-sort/imports
 import { Chart, registerables } from 'chart.js';
+import 'chartjs-adapter-date-fns';
 import { useEffect, useRef, useState } from 'react';
 
 // Register the necessary components
@@ -12,6 +14,7 @@ function UserCommitChartAll() {
   const [commitData, setCommitData] = useState<{ x: string; y: number }[]>([]);
   const owner = 'Tran-Huu-Tai-12-04-23'; // Tên người dùng
   const token = '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';
+
   useEffect(() => {
     // Hàm lấy dữ liệu commit
     const fetchUserCommits = async () => {
@@ -83,7 +86,7 @@ function UserCommitChartAll() {
 
       // Create a new chart instance
       chartInstanceRef.current = new Chart(chartRef.current, {
-        type: 'scatter',
+        type: 'line',
         data: {
           datasets: [
             {

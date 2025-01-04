@@ -28,6 +28,7 @@
     "@vercel/og": "^0.0.22",
     "axios": "^1.2.2",
     "chart.js": "^4.4.7",
+    "chartjs-adapter-date-fns": "^3.0.0",
     "clsx": "^1.2.1",
     "dayjs": "^1.11.7",
     "framer-motion": "7.7.0",

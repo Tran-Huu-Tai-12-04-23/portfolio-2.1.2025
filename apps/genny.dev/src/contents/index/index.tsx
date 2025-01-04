@@ -11,7 +11,6 @@ import PrettyOptimized from '@/contents/index/PrettyOptimized';
 
 import { GithubOrgs } from './GithubOrgs';
 import GithubRepoLst from './GithubRepoLst';
-import UserCommitChartAll from './UserCommitAll';
 
 const Header = dynamic(() => import('@/contents/index/Header'), {
   ssr: false,
@@ -82,9 +81,9 @@ function IndexContents() {
       <section className={clsx('mb-12', 'lg:mb-24')}>
         <GithubRepoLst />
       </section>
-      <section className={clsx('mb-12', 'lg:mb-24')}>
+      {/* <section className={clsx('mb-12', 'lg:mb-24')}>
         <UserCommitChartAll />
-      </section>
+      </section> */}
       <section className={clsx('mb-12', 'lg:mb-24')}>
         <DetailOriented />
       </section>
