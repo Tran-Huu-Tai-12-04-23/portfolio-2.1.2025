@@ -24,9 +24,7 @@ function Navbar() {
   ];
 
   return (
-    <header
-      className={clsx('fixed left-0 right-0 top-0 z-[1000]', 'fm:absolute')}
-    >
+    <header id="navigation" className={clsx('fixed left-0 right-0 top-0 z-10')}>
       <div
         className={clsx(
           'fixed inset-0 h-16',
@@ -43,7 +41,7 @@ function Navbar() {
       <div className={clsx('content-wrapper-max')}>
         <div
           className={clsx(
-            'relative z-50 flex h-16 items-center justify-between px-2 text-sm',
+            'relative flex h-16 items-center justify-between px-2 text-sm',
             'md:px-4'
           )}
         >

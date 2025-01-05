@@ -5,9 +5,7 @@ import { CodeIcon, HeartIcon, SparklesIcon } from '@/components/Icons';
 
 import { useTranslate } from '@/hooks/useTranslate';
 
-import DetailOriented from '@/contents/index/DetailOriented';
 import FeaturedCard from '@/contents/index/FeaturedCard';
-import PrettyOptimized from '@/contents/index/PrettyOptimized';
 
 import { GithubOrgs } from './GithubOrgs';
 import GithubRepoLst from './GithubRepoLst';
@@ -75,20 +73,11 @@ function IndexContents() {
       <div className={clsx('hidden', 'lg:-mt-16 lg:mb-24 lg:block')}>
         <FeaturedCardSection />
       </div>
-      <section className={clsx('mb-12', 'lg:mb-24')}>
+      <section className={clsx('mb-12')}>
         <GithubOrgs />
       </section>
-      <section className={clsx('mb-12', 'lg:mb-24')}>
+      <section className={clsx('mb-12')}>
         <GithubRepoLst />
-      </section>
-      {/* <section className={clsx('mb-12', 'lg:mb-24')}>
-        <UserCommitChartAll />
-      </section> */}
-      <section className={clsx('mb-12', 'lg:mb-24')}>
-        <DetailOriented />
-      </section>
-      <section className={clsx('mb-12', 'lg:mb-24')}>
-        <PrettyOptimized />
       </section>
     </>
   );

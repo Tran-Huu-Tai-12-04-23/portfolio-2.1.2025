@@ -28,7 +28,7 @@ function PageHeader({
     <header
       id="page-header"
       className={clsx(
-        'background-grid background-grid--fade-out border-divider-light z-[900] mb-10 border-b pb-10 pt-32',
+        'background-grid background-grid--fade-out border-divider-light mb-10 border-b pb-10 pt-32',
         'md:mb-0 md:border-none md:pb-20 md:pt-40',
         'dark:border-divider-dark'
       )}

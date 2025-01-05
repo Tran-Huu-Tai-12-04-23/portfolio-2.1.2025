@@ -22,7 +22,13 @@ const nextConfig = {
   reactStrictMode: true,
   i18n: nextI18NextConfig.i18n,
   images: {
-    domains: ['avatars.githubusercontent.com', 'github.com'],
+    domains: [
+      'avatars.githubusercontent.com',
+      'github.com',
+      'uploadthing.com',
+      'firebasestorage.googleapis.com',
+      'images.unsplash.com',
+    ],
   },
 };
 

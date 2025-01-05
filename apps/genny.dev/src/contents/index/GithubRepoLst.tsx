@@ -236,7 +236,6 @@ function GithubRepoLst() {
                   icon={i + 1}
                   active={item.id === currentState?.id}
                   onClick={() => {
-                    console.log(item);
                     setCurrentState(item);
                   }}
                 />
@@ -275,7 +274,7 @@ function GithubRepoLst() {
         </div>
       </SectionContent>
       <div
-        className={clsx('content-wrapper justify-startpb-20 flex items-center')}
+        className={clsx('content-wrapper mb-4 flex items-center justify-start')}
       >
         <UserCommitChart
           owner={owner}
@@ -284,11 +283,7 @@ function GithubRepoLst() {
         />
       </div>
 
-      <div
-        className={clsx(
-          'content-wrapper flex items-center justify-center pb-20'
-        )}
-      >
+      <div className={clsx('content-wrapper flex items-center justify-center')}>
         <Pagination
           min={paginationState.min}
           max={paginationState.max}

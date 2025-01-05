@@ -8,7 +8,10 @@ Chart.register(...registerables);
 function UserCommitChart({ owner, repo, token }: any) {
   const chartRef = useRef<HTMLCanvasElement>(null);
   const chartInstanceRef = useRef<Chart | null>(null);
-  const [commitData, setCommitData] = useState({ labels: [], data: [] });
+  const [commitData, setCommitData] = useState<{
+    labels: string[];
+    data: number[];
+  }>({ labels: [], data: [] });
 
   useEffect(() => {
     // Hàm lấy dữ liệu commit
@@ -59,7 +62,7 @@ function UserCommitChart({ owner, repo, token }: any) {
 
       // Create a new chart instance
       chartInstanceRef.current = new Chart(chartRef.current, {
-        type: 'line',
+        type: 'radar',
         data: {
           labels: commitData.labels,
           datasets: [
@@ -74,16 +77,18 @@ function UserCommitChart({ owner, repo, token }: any) {
         },
         options: {
           scales: {
-            y: {
+            r: {
               beginAtZero: true,
             },
           },
+          responsive: true,
+          maintainAspectRatio: false,
         },
       });
     }
   }, [commitData]);
 
-  return <canvas ref={chartRef} width={400} height={200} />;
+  return <canvas ref={chartRef} width={800} height={600} />;
 }
 
 export default UserCommitChart;

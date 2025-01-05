@@ -30,19 +30,7 @@ export function SectionButton({
       )}
       onClick={onClick}
     >
-      {icon && (
-        <span
-          className={clsx(
-            'hidden w-24 shrink-0 justify-center text-center text-7xl font-black',
-            'xl:flex',
-            active
-              ? ['text-accent-600', 'dark:text-accent-400']
-              : ['text-slate-400', 'dark:text-slate-600']
-          )}
-        >
-          {icon}
-        </span>
-      )}
+      {icon}
       <span className={clsx('flex-1')}>
         <span
           className={clsx(
