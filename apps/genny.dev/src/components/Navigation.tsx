@@ -26,7 +26,7 @@ function Navbar() {
   return (
     <header
       id="navigation"
-      className={clsx('fixed left-0 right-0 top-0 z-[10000]')}
+      className={clsx('fixed left-0 right-0 top-0 z-[10000] backdrop-blur-3xl')}
     >
       <div
         className={clsx(

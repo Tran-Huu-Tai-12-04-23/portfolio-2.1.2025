@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-const token =
-  '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'; // Thay bằng GitHub token của bạn
+const token = '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'; // Thay bằng GitHub token của bạn
 const username = 'Tran-Huu-Tai-12-04-23'; // Thay bằng username GitHub của bạn
 
 // eslint-disable-next-line consistent-return

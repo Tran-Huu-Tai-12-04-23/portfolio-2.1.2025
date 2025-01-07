@@ -13,8 +13,7 @@ function UserCommitChartAll() {
   const chartInstanceRef = useRef<Chart | null>(null);
   const [commitData, setCommitData] = useState<{ x: string; y: number }[]>([]);
   const owner = 'Tran-Huu-Tai-12-04-23'; // Tên người dùng
-  const token =
-    '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';
+  const token = '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';
 
   useEffect(() => {
     // Hàm lấy dữ liệu commit

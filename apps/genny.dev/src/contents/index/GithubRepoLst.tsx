@@ -137,8 +137,7 @@ function GithubRepoLst() {
   });
   const owner = 'Tran-Huu-Tai-12-04-23'; // Tên người dùng
   const repo = 'course-edu-api'; // Tên repo
-  const token =
-    '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';
+  const token = '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';
 
   useEffect(() => {
     fetch('https://api.github.com/users/tran-huu-tai-12-04-23/repos', {
@@ -162,18 +161,22 @@ function GithubRepoLst() {
         })
           .then((res) => res.json())
           .then((resData2) => {
-            setData([...resData, ...resData2]);
-            setRepoState({
-              private: resData2?.length,
-              public: resData?.length,
-              total: [...resData, ...resData2]?.length,
+            console.log({
+              resData2,
+              resData,
             });
-            setCurrentState(resData[0]);
-            setPaginationState({
-              min: 1,
-              max: Math.ceil([...resData, ...resData2].length / 3),
-              currentPage: 1,
-            });
+            // setData([...resData, ...resData2]);
+            // setRepoState({
+            //   private: resData2?.length,
+            //   public: resData?.length,
+            //   total: [...resData, ...resData2]?.length,
+            // });
+            // setCurrentState(resData[0]);
+            // setPaginationState({
+            //   min: 1,
+            //   max: Math.ceil([...resData, ...resData2].length / 3),
+            //   currentPage: 1,
+            // });
           });
       });
   }, [token]);
