@@ -53,8 +53,8 @@ function HeaderImage() {
             animate={controlsHeaderImage}
           >
             <Image
-              alt="Genny Dev Illustration"
-              src="/assets/images/me.png"
+              alt="Huu Tai Dev Illustration"
+              src="/assets/images/me.webp"
               width={350}
               height={526}
               className={clsx(

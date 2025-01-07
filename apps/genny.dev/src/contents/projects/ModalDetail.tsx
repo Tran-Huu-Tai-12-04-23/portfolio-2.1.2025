@@ -4,7 +4,6 @@
 
 'use client';
 
-import { m } from 'framer-motion';
 import Image from 'next/image';
 import { useState } from 'react';
 
@@ -18,6 +17,8 @@ import AppWindow from '@/components/wireframes/AppWindow';
 import GitHubWireframe from '@/components/wireframes/GitHub';
 
 import { IProject, projectsData } from '@/assets/data';
+
+import ProjectDetail from './ProjectDetail';
 
 export function AnimateModalProjectDetail({
   children,
@@ -61,50 +62,11 @@ export function AnimateModalProjectDetail({
                 }))}
               >
                 <GitHubWireframe
-                  author="Gennydev"
+                  author="Huu Taidev"
                   license="2021"
                   repository={currentState?.linkGitBackend}
                   description={currentState?.description}
-                  childContent={
-                    <>
-                      <div className="dark:bg-divider-dark flex flex-wrap items-center justify-center bg-white">
-                        {currentState?.lstImg.map((image, idx) => (
-                          <m.div
-                            key={`images${idx}`}
-                            style={{
-                              rotate: Math.random() * 20 - 10,
-                            }}
-                            whileHover={{
-                              scale: 1.1,
-                              rotate: 0,
-                              zIndex: 100,
-                            }}
-                            whileTap={{
-                              scale: 1.1,
-                              rotate: 0,
-                              zIndex: 100,
-                            }}
-                            className="-mr-4 mt-4 flex-shrink-0 overflow-hidden rounded-xl border border-neutral-100 bg-white p-1 dark:border-neutral-700 dark:bg-neutral-800"
-                          >
-                            <Image
-                              src={image}
-                              alt="bali images"
-                              width="500"
-                              height="500"
-                              className="h-20 w-20 flex-shrink-0 rounded-lg object-cover md:h-40 md:w-40"
-                            />
-                          </m.div>
-                        ))}
-                      </div>
-
-                      <video
-                        className="mt-4 h-96 w-full rounded-xl border-[2px] border-black/50"
-                        controls
-                      >
-                        <source src={currentState?.videoDemo} />
-                      </video>
-                    </>
-                  }
+                  childContent={<ProjectDetail currentState={currentState} />}
                 />
               </AppWindow>
             </div>

@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Genny Dev - Software Engineer, Web Developer, Tech Enthusiast",
-    "description": "Genny Dev - Software Engineer, Web Developer, Tech Enthusiast. I'm Genny, a Fullstack Developer who loves intuitive, clean and modern UI design."
+    "title": "Huu Tai Dev - Software Engineer, Web Developer, Tech Enthusiast",
+    "description": "Huu Tai Dev - Software Engineer, Web Developer, Tech Enthusiast. I'm Huu Tai, a Fullstack Developer who loves intuitive, clean and modern UI design."
   },
   "header": {
     "projects": "Projects",
@@ -39,7 +39,7 @@
   "home": {
     "greet": "Hi!",
     "nameStart": "I'm ",
-    "nameMiddle": "Genny",
+    "nameMiddle": "Huu Tai",
     "nameEnd": "Dev,",
     "role": "Fullstack Developer",
     "description": "a software engineer, a web developer, and a tech enthusiast.",
@@ -63,7 +63,7 @@
   },
   "footer": {
     "aboutMe": "About Me",
-    "aboutMeDesc": "I'm Genny, a Fullstack Developer who loves intuitive, clean and modern UI design.",
+    "aboutMeDesc": "I'm Huu Tai, a Fullstack Developer who loves intuitive, clean and modern UI design.",
     "work": "Work",
     "contact": "Contact",
     "experience": "Experience",

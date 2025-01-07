@@ -15,7 +15,7 @@ import dayjs from '@/utils/dayjs';
 function LastUpdate() {
   return (
     <a
-      href="https://github.com/Gennydev/genny.dev"
+      href="https://github.com/Huu Taidev/genny.dev"
       target="_blank"
       rel="noreferrer nofollow"
       className={clsx('hover:underline')}
@@ -120,7 +120,7 @@ function FooterDescription() {
       <ul className={clsx('-ml-2 flex gap-1')}>
         <li>
           <a
-            href="https://twitter.com/Gennydev"
+            href="https://twitter.com/Huu Taidev"
             target="_blank"
             rel="noreferrer nofollow"
             className={clsx('flex h-9 w-9 items-center justify-center')}
@@ -132,7 +132,7 @@ function FooterDescription() {
         </li>
         <li>
           <a
-            href="https://github.com/Gennydev"
+            href="https://github.com/Huu Taidev"
             target="_blank"
             rel="noreferrer nofollow"
             className={clsx('flex h-9 w-9 items-center justify-center')}
@@ -144,7 +144,7 @@ function FooterDescription() {
         </li>
         <li>
           <a
-            href="https://figma.com/@Gennydev"
+            href="https://figma.com/@Huu Taidev"
             target="_blank"
             rel="noreferrer nofollow"
             className={clsx('flex h-9 w-9 items-center justify-center')}
@@ -223,7 +223,7 @@ function Footer() {
                     },
                     {
                       title: t('footer.sourceCode'),
-                      href: 'https://github.com/Gennydev/genny.dev',
+                      href: 'https://github.com/Huu Taidev/genny.dev',
                       isInternal: false,
                     },
                     {
@@ -243,7 +243,7 @@ function Footer() {
           )}
         >
           <div className={clsx('font-semibold')}>
-            &copy; {dayjs().format('YYYY')}, Genny Dev
+            &copy; {dayjs().format('YYYY')}, Huu Tai Dev
           </div>
           <div className={clsx('text-slate-500', 'dark:text-slate-400')}>
             <LastUpdate />

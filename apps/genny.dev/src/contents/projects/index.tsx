@@ -63,14 +63,14 @@ function ProjectsContents() {
                 }))}
               >
                 <GitHubWireframe
-                  author="Gennydev"
+                  author="Huu Taidev"
                   license="2021"
                   repository={currentState?.linkGitBackend}
                   description={currentState?.description}
                 />
                 {/* {currentState === 'github' && (
                   <GitHubWireframe
-                    author="Gennydev"
+                    author="Huu Taidev"
                     license="MIT"
                     repository="tailwindcss-accent"
                     description="Adds accent colors for more dynamic and flexible color utilization."

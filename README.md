@@ -1,10 +1,10 @@
 <div>
   <h1>
-    Genny Dev
+    Huu Tai Dev
     &middot;
     <img src="https://img.shields.io/website?style=flat-square&url=https%3A%2F%2Fwww.genny.dev"/>
-    <img src="https://img.shields.io/github/deployments/Gennydev/genny.dev/production?label=production&style=flat-square"/>
-    <img src="https://img.shields.io/github/commit-activity/m/Gennydev/genny.dev?style=flat-square"/>
+    <img src="https://img.shields.io/github/deployments/Huu Taidev/genny.dev/production?label=production&style=flat-square"/>
+    <img src="https://img.shields.io/github/commit-activity/m/Huu Taidev/genny.dev?style=flat-square"/>
   </h1>
 </div>
 

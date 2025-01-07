@@ -7,6 +7,7 @@ import { useTranslate } from '@/hooks/useTranslate';
 
 import FeaturedCard from '@/contents/index/FeaturedCard';
 
+import DailyCommit from './DailyCommit';
 import { GithubOrgs } from './GithubOrgs';
 import GithubRepoLst from './GithubRepoLst';
 
@@ -70,6 +71,9 @@ function IndexContents() {
   return (
     <>
       <Header />
+      <div className={clsx('hidden', 'lg:-mt-16 lg:mb-24 lg:block')}>
+        <DailyCommit />
+      </div>
       <div className={clsx('hidden', 'lg:-mt-16 lg:mb-24 lg:block')}>
         <FeaturedCardSection />
       </div>

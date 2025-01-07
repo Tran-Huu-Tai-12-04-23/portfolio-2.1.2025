@@ -94,7 +94,7 @@ export const getPostStructuredData = ({
     author: [
       {
         '@type': 'Person',
-        name: 'Genny Dev',
+        name: 'Huu Tai Dev',
         jobTitle: 'Fullstack Developer',
         url: 'https://www.genny.dev/about',
       },

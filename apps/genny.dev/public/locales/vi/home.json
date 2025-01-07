@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Genny Dev - Kỹ sư phần mềm, Nhà phát triển web, Người đam mê công nghệ",
-    "description": "Genny Dev - Kỹ sư phần mềm, Nhà phát triển web, Người đam mê công nghệ. Tôi là Genny, một Nhà phát triển Fullstack yêu thích thiết kế giao diện người dùng trực quan, sạch sẽ và hiện đại."
+    "title": "Huu Tai Dev - Kỹ sư phần mềm, Nhà phát triển web, Người đam mê công nghệ",
+    "description": "Huu Tai Dev - Kỹ sư phần mềm, Nhà phát triển web, Người đam mê công nghệ. Tôi là Huu Tai, một Nhà phát triển Fullstack yêu thích thiết kế giao diện người dùng trực quan, sạch sẽ và hiện đại."
   },
   "header": {
     "projects": "Dự án",
@@ -39,7 +39,7 @@
   "home": {
     "greet": "Chào!",
     "nameStart": "Tôi là ",
-    "nameMiddle": "Genny",
+    "nameMiddle": "Huu Tai",
     "nameEnd": "Dev,",
     "role": "Kỹ sư phần mềm",
     "description": "một kỹ sư phần mềm, một nhà phát triển web, và một người đam mê công nghệ.",
@@ -63,7 +63,7 @@
   },
   "footer": {
     "aboutMe": "Về tôi",
-    "aboutMeDesc": "Tôi là Genny, một Nhà phát triển Fullstack yêu thích thiết kế giao diện người dùng trực quan, sạch sẽ và hiện đại.",
+    "aboutMeDesc": "Tôi là Huu Tai, một Nhà phát triển Fullstack yêu thích thiết kế giao diện người dùng trực quan, sạch sẽ và hiện đại.",
     "work": "Công việc",
     "contact": "Liên hệ",
     "experience": "Kinh nghiệm",
