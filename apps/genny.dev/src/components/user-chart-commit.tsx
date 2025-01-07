@@ -2,10 +2,13 @@
 import { Chart, registerables } from 'chart.js';
 import { useEffect, useRef, useState } from 'react';
 
+import { fetchUserCommits } from '@/services/git.service';
+
 // Register the necessary components
 Chart.register(...registerables);
 
-function UserCommitChart({ owner, repo, token }: any) {
+// Use environment variable for GitHub token
+function UserCommitChart({ owner, repo }: any) {
   const chartRef = useRef<HTMLCanvasElement>(null);
   const chartInstanceRef = useRef<Chart | null>(null);
   const [commitData, setCommitData] = useState<{
@@ -15,43 +18,10 @@ function UserCommitChart({ owner, repo, token }: any) {
 
   useEffect(() => {
     // Hàm lấy dữ liệu commit
-    const fetchUserCommits = async () => {
-      try {
-        const response = await fetch(
-          `https://api.github.com/repos/${owner}/${repo}/commits`,
-          {
-            headers: {
-              Authorization: `token ${token}`,
-            },
-          }
-        );
-
-        const commits = await response.json();
-
-        // Lọc commit của riêng bạn
-        const userCommits = commits.filter(
-          (commit) => commit.author?.login === owner
-        );
-
-        // Tính toán số commit mỗi ngày
-        const commitCounts: { [key: string]: number } = {};
-        userCommits.forEach((commit) => {
-          const date = new Date(commit.commit.author.date).toLocaleDateString();
-          commitCounts[date] = (commitCounts[date] || 0) + 1;
-        });
-
-        // Cập nhật dữ liệu biểu đồ
-        setCommitData({
-          labels: Object.keys(commitCounts),
-          data: Object.values(commitCounts),
-        });
-      } catch (error) {
-        console.error('Error fetching commits:', error);
-      }
-    };
-
-    fetchUserCommits();
-  }, [owner, repo, token]);
+    fetchUserCommits(owner, repo).then((data) => {
+      setCommitData(data);
+    });
+  }, [owner, repo]);
 
   useEffect(() => {
     if (chartRef.current && commitData.labels.length > 0) {

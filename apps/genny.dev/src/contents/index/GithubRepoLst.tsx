@@ -8,6 +8,7 @@ import SectionTitle from '@/components/sections/SectionTitle';
 import UserCommitChart from '@/components/user-chart-commit';
 
 import TodoItem from '@/contents/index/Cards/TodoItem';
+import { getRepoLst } from '@/services/git.service';
 
 import type { TodoItemState } from '@/contents/index/Cards/TodoItem';
 
@@ -140,45 +141,16 @@ function GithubRepoLst() {
   const token = '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';
 
   useEffect(() => {
-    fetch('https://api.github.com/users/tran-huu-tai-12-04-23/repos', {
-      headers: {
-        Authorization: `token ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((resData) => {
-        setData(resData);
-        setCurrentState(resData[0]);
-        setPaginationState({
-          min: 1,
-          max: Math.ceil(resData.length / 3),
-          currentPage: 1,
-        });
-        fetch('https://api.github.com/user/repos', {
-          headers: {
-            Authorization: `token ${token}`,
-          },
-        })
-          .then((res) => res.json())
-          .then((resData2) => {
-            console.log({
-              resData2,
-              resData,
-            });
-            // setData([...resData, ...resData2]);
-            // setRepoState({
-            //   private: resData2?.length,
-            //   public: resData?.length,
-            //   total: [...resData, ...resData2]?.length,
-            // });
-            // setCurrentState(resData[0]);
-            // setPaginationState({
-            //   min: 1,
-            //   max: Math.ceil([...resData, ...resData2].length / 3),
-            //   currentPage: 1,
-            // });
-          });
+    getRepoLst().then((res: any) => {
+      setData(res.repos);
+      setRepoState({
+        private: res.private,
+        public: res.public,
+        total: res.total,
       });
+      setPaginationState(res.paginationState);
+      setCurrentState(res.currentState);
+    });
   }, [token]);
 
   return (
