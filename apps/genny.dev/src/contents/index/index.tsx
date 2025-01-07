@@ -34,7 +34,7 @@ function FeaturedCardSection() {
           title={t('home.cleanAIntuitive')}
           desc={t('home.cleanInDesc')}
         />
-        
+
         <FeaturedCard
           icon={
             <div
@@ -70,7 +70,7 @@ function FeaturedCardSection() {
 
 function IndexContents() {
   return (
-    <>
+    <div>
       <Header />
       <div className={clsx('hidden', 'lg:-mt-16 lg:mb-24 lg:block')}>
         <DailyCommit />
@@ -84,7 +84,7 @@ function IndexContents() {
       <section className={clsx('mb-12')}>
         <GithubRepoLst />
       </section>
-    </>
+    </div>
   );
 }
 
