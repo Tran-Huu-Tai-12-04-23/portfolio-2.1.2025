@@ -34,6 +34,7 @@ function FeaturedCardSection() {
           title={t('home.cleanAIntuitive')}
           desc={t('home.cleanInDesc')}
         />
+        
         <FeaturedCard
           icon={
             <div
