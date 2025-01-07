@@ -1,8 +1,10 @@
-/* eslint-disable react/no-array-index-key */
 import clsx from 'clsx';
-import React, { useEffect, useState } from 'react';
+import dayjs from 'dayjs';
+import { useEffect, useState } from 'react';
 
 import { getReposWithCommitsToday } from '@/services/git.service';
+
+import { GitActivityCard } from './git-ac-card';
 
 interface Commit {
   message: string;
@@ -16,20 +18,23 @@ interface RepoWithCommits {
   commits: Commit[];
 }
 
-function Wrapper({ children }: { children: React.ReactNode }) {
+// eslint-disable-next-line react/prop-types
+function Wrapper({ children }) {
   return (
     <div className={clsx('content-wrapper')}>
-      <div className={clsx('flex flex-col gap-4', 'lg:flex-row lg:gap-8')}>
+      <div className={clsx('mt-10 flex flex-col gap-4')}>
+        <div className="text-xl font-bold">Recently activity on my github</div>
         {children}
       </div>
     </div>
   );
 }
-// eslint-disable-next-line react/function-component-definition
-const DailyCommit: React.FC = () => {
-  const [reposWithCommits, setReposWithCommits] = useState<RepoWithCommits[]>(
-    []
-  );
+
+export default function DailyCommit() {
+  const [reposWithCommits, setReposWithCommits] = useState<RepoWithCommits>({
+    repo: '',
+    commits: [],
+  });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -37,7 +42,7 @@ const DailyCommit: React.FC = () => {
     const fetchCommits = async () => {
       try {
         const data = await getReposWithCommitsToday();
-        setReposWithCommits(data);
+        setReposWithCommits(data?.length > 0 ? data[0] : {});
       } catch (err) {
         setError('Error fetching commits');
       } finally {
@@ -51,7 +56,15 @@ const DailyCommit: React.FC = () => {
   if (loading) {
     return (
       <Wrapper>
-        <div>Loading...</div>
+        <div>
+          {[...Array(1)].map((_, i) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <div key={i} className="animate-pulse">
+              <div className="mb-2 h-6 w-40 rounded-full" />
+              <div className="h-20 rounded-lg" />
+            </div>
+          ))}
+        </div>
       </Wrapper>
     );
   }
@@ -59,47 +72,48 @@ const DailyCommit: React.FC = () => {
   if (error) {
     return (
       <Wrapper>
-        <div>{error}</div>
+        <GitActivityCard
+          type="uncommitted"
+          title="Error"
+          subtitle={error}
+          date=""
+          onPrimaryClick={() => window.location.reload()}
+        />
+      </Wrapper>
+    );
+  }
+
+  if (reposWithCommits?.commits.length === 0) {
+    return (
+      <Wrapper>
+        <GitActivityCard
+          type="untracked"
+          title="No Activity"
+          subtitle="No commits found for today"
+          date=""
+        />
       </Wrapper>
     );
   }
 
   return (
     <Wrapper>
-      <div className="daily-commit">
-        <h2>Daily Commits</h2>
-        {reposWithCommits.length === 0 ? (
-          <p>No commits found for today.</p>
-        ) : (
-          reposWithCommits.map((repo) => (
-            <div key={repo.repo} className="repo">
-              <h3>{repo.repo}</h3>
-              <ul>
-                {repo.commits.map((commit, index) => (
-                  <li key={index}>
-                    <a
-                      href={commit.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {commit.message}
-                    </a>
-                    <p>
-                      <strong>Author:</strong> {commit.author}
-                    </p>
-                    <p>
-                      <strong>Date:</strong>{' '}
-                      {new Date(commit.date).toLocaleString()}
-                    </p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))
-        )}
+      <div className="w-full space-y-4">
+        {reposWithCommits?.commits?.map((repo, index) => (
+          // const isMultipleCommits = repo.commits.length > 1;
+          // const latestCommit = repo.commits[0];
+
+          <GitActivityCard
+            // eslint-disable-next-line react/no-array-index-key
+            key={index}
+            type="committed"
+            title={repo.message}
+            subtitle={repo.author}
+            date={dayjs(repo.date).format('DD/MM/YYYY HH:mm')}
+            onPrimaryClick={() => window.open(repo.url, '_blank')}
+          />
+        ))}
       </div>
     </Wrapper>
   );
-};
-
-export default DailyCommit;
+}

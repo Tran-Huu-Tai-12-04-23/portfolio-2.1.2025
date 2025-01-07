@@ -72,11 +72,13 @@ function IndexContents() {
   return (
     <div>
       <Header />
-      <div className={clsx('hidden', 'lg:-mt-16 lg:mb-24 lg:block')}>
-        <DailyCommit />
-      </div>
+
       <div className={clsx('hidden', 'lg:-mt-16 lg:mb-24 lg:block')}>
         <FeaturedCardSection />
+      </div>
+      <div className={clsx('hidden', 'lg:-mt-16 lg:mb-24 lg:block')}>
+    
+        <DailyCommit />
       </div>
       <section className={clsx('mb-12')}>
         <GithubOrgs />
