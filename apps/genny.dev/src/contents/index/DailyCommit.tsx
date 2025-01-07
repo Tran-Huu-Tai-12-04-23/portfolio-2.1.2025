@@ -68,10 +68,10 @@ const DailyCommit: React.FC = () => {
     <Wrapper>
       <div className="daily-commit">
         <h2>Daily Commits</h2>
-        {reposWithCommits.length === 0 ? (
+        {reposWithCommits?.length === 0 ? (
           <p>No commits found for today.</p>
         ) : (
-          reposWithCommits.map((repo) => (
+          reposWithCommits?.map((repo) => (
             <div key={repo.repo} className="repo">
               <h3>{repo.repo}</h3>
               <ul>

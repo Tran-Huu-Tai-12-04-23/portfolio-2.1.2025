@@ -137,7 +137,8 @@ function GithubRepoLst() {
   });
   const owner = 'Tran-Huu-Tai-12-04-23'; // Tên người dùng
   const repo = 'course-edu-api'; // Tên repo
-  const token = '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';
+  const token =
+    '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';
 
   useEffect(() => {
     fetch('https://api.github.com/users/tran-huu-tai-12-04-23/repos', {

@@ -24,7 +24,10 @@ function Navbar() {
   ];
 
   return (
-    <header id="navigation" className={clsx('fixed left-0 right-0 top-0 z-10')}>
+    <header
+      id="navigation"
+      className={clsx('fixed left-0 right-0 top-0 z-[10000]')}
+    >
       <div
         className={clsx(
           'fixed inset-0 h-16',

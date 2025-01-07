@@ -6,7 +6,8 @@ import { AnimatedTestimonials } from '@/components/animates-ui/testimonials';
 export function GithubOrgs() {
   const [data, setData] = useState([]);
 
-  const token = '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';
+  const token =
+    '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';
 
   useEffect(() => {
     fetch('https://api.github.com/user/orgs', {
