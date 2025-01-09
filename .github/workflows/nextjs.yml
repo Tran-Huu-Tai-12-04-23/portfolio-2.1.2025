@@ -55,7 +55,8 @@ jobs:
 
       - name: Build with Turbo
         run: pnpm turbo run build
-
+      - name: Export Next.js site
+        run: pnpm next export
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
