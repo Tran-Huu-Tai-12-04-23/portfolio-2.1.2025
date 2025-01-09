@@ -23,7 +23,7 @@ ENV NEXT_PUBLIC_GITHUB_TOKEN="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"
 ENV NEXT_PUBLIC_VERCEL_ENV="export"
 
 # Build the Next.js project
-RUN pnpm turbo run build
+RUN pnpm run build
 
 # Expose the port the app runs on
 EXPOSE 3000
