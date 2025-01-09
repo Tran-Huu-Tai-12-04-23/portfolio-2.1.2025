@@ -21,35 +21,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Detect package manager
-        id: detect-package-manager
-        run: |
-          if [ -f yarn.lock ]; then
-            echo "packageManager=yarn" >> $GITHUB_ENV
-            echo "installCommand=install" >> $GITHUB_ENV
-            echo "buildCommand=turbo run build" >> $GITHUB_ENV
-          elif [ -f package-lock.json ]; then
-            echo "packageManager=npm" >> $GITHUB_ENV
-            echo "installCommand=ci" >> $GITHUB_ENV
-            echo "buildCommand=turbo run build" >> $GITHUB_ENV
-          elif [ -f pnpm-lock.yaml ]; then
-            echo "packageManager=pnpm" >> $GITHUB_ENV
-            echo "installCommand=install" >> $GITHUB_ENV
-            echo "buildCommand=turbo run build" >> $GITHUB_ENV
-          else
-            echo "No package manager lock file found"
-            exit 1
-          fi
-          echo "runner=${{ env.packageManager }} run"
-
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: ${{ env.packageManager }}
+          cache: 'pnpm'
 
       - name: Install pnpm
-        if: env.packageManager == 'pnpm'
         run: npm install -g pnpm
 
       - name: Setup Pages
@@ -62,15 +40,15 @@ jobs:
         with:
           path: |
             .next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock', '**/pnpm-lock.yaml') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
           restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock', '**/pnpm-lock.yaml') }}-
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
 
       - name: Install dependencies
-        run: ${{ env.packageManager }} ${{ env.installCommand }}
+        run: pnpm install
 
       - name: Build with Turbo
-        run: ${{ env.buildCommand }}
+        run: pnpm turbo run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
