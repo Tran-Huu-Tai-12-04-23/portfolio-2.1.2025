@@ -32,7 +32,6 @@ const nextConfig = {
     ],
   },
   trailingSlash: true,
-  output: 'export',
   ...(isExport ? {} : { i18n: nextI18NextConfig.i18n }),
 };
 
