@@ -23,10 +23,6 @@ jobs:
 
       - name: Setup Node
         uses: actions/checkout@v4
-      - name: Setup Node2
-        uses: pnpm/action-setup@v4
-        with:
-              version: 9
       - name: Setup Node3
         uses: actions/setup-node@v4
         with:
