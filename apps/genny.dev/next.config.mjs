@@ -30,6 +30,7 @@ const nextConfig = {
       'images.unsplash.com',
     ],
   },
+  exportTrailingSlash: true,
 };
 
 const withBundleAnalyzer = bundeAnalyzer({
