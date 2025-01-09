@@ -22,7 +22,6 @@ ENV SALT_IP_ADDRESS="super-secret"
 ENV NEXT_PUBLIC_GITHUB_TOKEN="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"
 ENV NEXT_PUBLIC_VERCEL_ENV="export"
 
-
 # Expose the port the app runs on
 EXPOSE 3000
 
