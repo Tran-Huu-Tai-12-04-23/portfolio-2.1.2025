@@ -3,6 +3,7 @@ import nextMDX from '@next/mdx';
 import rehypePlugins from 'rehype-plugins';
 import remarkPlugins from 'remark-plugins';
 import nextI18NextConfig from './next-i18next.config.js';
+const isExport = process.env.NEXT_PUBLIC_VERCEL_ENV === 'export';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -20,7 +21,7 @@ const nextConfig = {
   ],
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
   reactStrictMode: true,
-  i18n: nextI18NextConfig.i18n,
+
   images: {
     domains: [
       'avatars.githubusercontent.com',
@@ -30,7 +31,9 @@ const nextConfig = {
       'images.unsplash.com',
     ],
   },
-  exportTrailingSlash: true,
+  trailingSlash: true,
+  output: 'export',
+  ...(isExport ? {} : { i18n: nextI18NextConfig.i18n }),
 };
 
 const withBundleAnalyzer = bundeAnalyzer({
