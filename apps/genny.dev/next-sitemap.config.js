@@ -25,7 +25,7 @@ module.exports = {
       return defaultValue(0.9);
     }
 
-    if (path === '/today-i-learned') {
+    if (path === '/experience') {
       return defaultValue(0.9);
     }
 

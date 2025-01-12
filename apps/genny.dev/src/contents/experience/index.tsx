@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 
-import Contents from '@/contents/TIL/Contents.mdx';
+import Contents from '@/contents/Experience/Contents.mdx';
 
-function TILContents() {
+function ExperienceContents() {
   return (
     <div className={clsx('content-wrapper mdx-contents')}>
       <Contents />
@@ -10,4 +10,4 @@ function TILContents() {
   );
 }
 
-export default TILContents;
+export default ExperienceContents;
