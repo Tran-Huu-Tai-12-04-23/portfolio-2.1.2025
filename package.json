@@ -5,7 +5,8 @@
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
     "clean": "turbo run clean",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "start": "pnpm turbo run clean && pnpm turbo run dev"
   },
   "devDependencies": {
     "eslint": "^8.57.1",
