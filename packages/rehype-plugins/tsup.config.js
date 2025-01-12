@@ -9,5 +9,6 @@ export default defineConfig((options) => {
     sourcemap: production ? false : 'inline',
     minify: production,
     clean: true,
+    onSuccess: 'tsc --noEmit',
   };
 });
