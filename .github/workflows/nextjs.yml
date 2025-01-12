@@ -21,7 +21,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker image
-        run: docker build -t ${{ secrets.IMAGE_NAME }}:${{ secrets.TAG_NAME }} .
+        run: docker build -t \ --build-arg DATABASE_URL="mongodb+srv://huutai:tai2k300@cluster0.xbemtzm.mongodb.net/my-porfolio?retryWrites=true&w=majority" \  --build-arg SALT_IP_ADDRESS="super-secret" \ --build-arg NEXT_PUBLIC_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \   ${{ secrets.IMAGE_NAME }}:${{ secrets.TAG_NAME }} .
 
       - name: Add tag docker image (optional)
         run: docker tag ${{ secrets.IMAGE_NAME }}:${{ secrets.TAG_NAME }} ${{ secrets.DOCKER_USERNAME }}/${{ secrets.IMAGE_NAME }}:${{ secrets.TAG_NAME }}_${{ github.sha }}
