@@ -57,4 +57,4 @@ jobs:
             # Pull and run new image
             docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.IMAGE_NAME }}:${{ secrets.TAG_NAME }}_${{ github.sha }}
             docker run -d -p 3012:3000 --name ${{ secrets.IMAGE_NAME }} ${{ secrets.DOCKER_USERNAME }}/${{ secrets.IMAGE_NAME }}:${{ secrets.TAG_NAME }}_${{ github.sha }}
-          EOF
+         ENDSSH
