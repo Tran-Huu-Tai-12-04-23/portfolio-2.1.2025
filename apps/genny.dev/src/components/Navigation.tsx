@@ -55,10 +55,7 @@ function Navbar() {
                 <NavLink title={t('header.blog')} href="/blog" />
               </li>
               <li>
-                <NavLink
-                  title={t('header.experience')}
-                  href="/today-i-learned"
-                />
+                <NavLink title={t('header.experience')} href="/experience" />
               </li>
               <li className={clsx('lg:hidden')} data-accent="blue">
                 <NavLinkDropdown title={t('header.work')} items={workLinks} />
