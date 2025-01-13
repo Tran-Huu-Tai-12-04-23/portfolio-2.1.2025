@@ -1,50 +1,50 @@
-# Use Node.js LTS version
-FROM node:18-alpine
+
 
 # Add ARG instructions for build-time variables
 ARG DATABASE_URL
 ARG SALT_IP_ADDRESS
 ARG NEXT_PUBLIC_GITHUB_TOKEN
+FROM node:18-alpine
 
 # Convert ARG to ENV
 ENV DATABASE_URL=$DATABASE_URL
 ENV SALT_IP_ADDRESS=$SALT_IP_ADDRESS
 ENV NEXT_PUBLIC_GITHUB_TOKEN=$NEXT_PUBLIC_GITHUB_TOKEN
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_ENV=production
 
-# Set working directory
 WORKDIR /app
 
 # Install build dependencies
-RUN apk add --no-cache python3 make g++
+RUN apk add --no-cache python3 make g++ git
 
-# Copy package files first (for better caching)
+# Copy package files first
 COPY package.json pnpm-lock.yaml turbo.json ./
-COPY packages/*/package.json ./packages/
-COPY apps/*/package.json ./apps/
+COPY packages/rehype-plugins/package.json ./packages/rehype-plugins/
+COPY packages/remark-plugins/package.json ./packages/remark-plugins/
+COPY apps/genny.dev/package.json ./apps/genny.dev/
 
 # Install pnpm
 RUN npm install -g pnpm
 
-# Clean install dependencies
+# Install dependencies
 RUN pnpm install --frozen-lockfile
 
-# Now copy the rest of the source code
+# Copy source code
 COPY . .
 
-# Remove any platform-specific node_modules
-RUN rm -rf packages/*/node_modules
-RUN rm -rf apps/*/node_modules
-RUN rm -rf node_modules
+# Clean and rebuild
+RUN rm -rf apps/genny.dev/.next
+RUN rm -rf packages/*/dist
+RUN rm -rf node_modules/.cache
 
-# Reinstall dependencies for the current platform
-RUN pnpm install --frozen-lockfile
+# Build the project
+RUN pnpm build
 
-# Build packages individually to handle errors better
-RUN cd packages/rehype-plugins && pnpm install && pnpm build || true
-RUN cd packages/remark-plugins && pnpm install && pnpm build || true
+# Change to the app directory
+WORKDIR /app/apps/genny.dev
 
-# Expose the port your app runs on
 EXPOSE 3000
 
-# Start the production server for the main app
-CMD ["pnpm", "--filter", "genny.dev", "start"]
+# Start the production server
+CMD ["pnpm", "start"]
