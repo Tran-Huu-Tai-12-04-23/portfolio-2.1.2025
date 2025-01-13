@@ -33,7 +33,8 @@ RUN pnpm add -g tsup
 
 # Copy workspace files first
 COPY pnpm-workspace.yaml ./
-COPY package.json pnpm-lock.yaml ./
+COPY package.json ./
+COPY pnpm-lock.yaml ./
 
 # Copy package configurations
 COPY packages/rehype-plugins/package.json ./packages/rehype-plugins/
@@ -43,14 +44,16 @@ COPY apps/genny.dev/package.json ./apps/genny.dev/
 # Install all dependencies
 RUN pnpm install --frozen-lockfile
 
-# Generate Prisma Client
-COPY prisma ./prisma
-RUN npx prisma generate
-
 # Copy source files
 COPY packages/rehype-plugins ./packages/rehype-plugins
 COPY packages/remark-plugins ./packages/remark-plugins
 COPY apps/genny.dev ./apps/genny.dev
+
+# Try to copy Prisma schema if it exists in apps/genny.dev
+COPY apps/genny.dev/prisma ./prisma/ 
+RUN if [ -f "./prisma/schema.prisma" ]; then \
+    npx prisma generate; \
+    fi
 
 # Build packages individually with verbose logging
 RUN cd packages/rehype-plugins && \
