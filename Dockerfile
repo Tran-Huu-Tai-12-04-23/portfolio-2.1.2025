@@ -1,97 +1,51 @@
 # Build stage
 FROM node:18-alpine AS builder
 
-# Set build-time variables
-ARG DATABASE_URL
-ARG SALT_IP_ADDRESS
-ARG NEXT_PUBLIC_GITHUB_TOKEN
-
-# Set environment variables
-ENV DATABASE_URL=${DATABASE_URL:-""}
-ENV SALT_IP_ADDRESS=${SALT_IP_ADDRESS:-""}
-ENV NEXT_PUBLIC_GITHUB_TOKEN=${NEXT_PUBLIC_GITHUB_TOKEN:-""}
-ENV NEXT_TELEMETRY_DISABLED=1
-ENV NODE_ENV=production
-
 WORKDIR /app
 
-# Install system dependencies including OpenSSL
-RUN apk add --no-cache \
-    python3 \
-    make \
-    g++ \
-    git \
-    curl \
-    openssl \
-    openssl-dev
+# Install essential dependencies
+RUN apk add --no-cache python3 make g++ git curl openssl openssl-dev && \
+    curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm && \
+    pnpm add -g tsup
 
-# Install pnpm
-RUN curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
-
-# Install global dependencies
-RUN pnpm add -g tsup
-
-# Copy workspace files first
-COPY pnpm-workspace.yaml ./
-COPY package.json ./
-COPY pnpm-lock.yaml ./
-
-# Copy package configurations
-COPY packages/rehype-plugins/package.json ./packages/rehype-plugins/
-COPY packages/remark-plugins/package.json ./packages/remark-plugins/
+# Copy package files
+COPY pnpm-workspace.yaml package.json pnpm-lock.yaml ./
+COPY packages/*/package.json ./packages/
 COPY apps/genny.dev/package.json ./apps/genny.dev/
 
-# Install all dependencies
+# Install dependencies
 RUN pnpm install --frozen-lockfile
 
 # Copy source files
-COPY packages/rehype-plugins ./packages/rehype-plugins
-COPY packages/remark-plugins ./packages/remark-plugins
+COPY packages ./packages
 COPY apps/genny.dev ./apps/genny.dev
+COPY apps/genny.dev/prisma ./prisma/
 
-# Try to copy Prisma schema if it exists in apps/genny.dev
-COPY apps/genny.dev/prisma ./prisma/ 
-RUN if [ -f "./prisma/schema.prisma" ]; then \
-    npx prisma generate; \
-    fi
+# Generate Prisma client if schema exists
+RUN if [ -f "./prisma/schema.prisma" ]; then npx prisma generate; fi
 
-# Build packages individually with verbose logging
-RUN cd packages/rehype-plugins && \
-    pnpm install tsup && \
-    pnpm build || (echo "rehype-plugins build failed" && exit 1)
-
-RUN cd packages/remark-plugins && \
-    pnpm install tsup && \
-    pnpm build || (echo "remark-plugins build failed" && exit 1)
-
-# Build the main app
-RUN cd apps/genny.dev && \
-    pnpm build || (echo "genny.dev build failed" && exit 1)
+# Build packages and app
+RUN cd packages/rehype-plugins && pnpm build && \
+    cd ../remark-plugins && pnpm build && \
+    cd ../../apps/genny.dev && pnpm build
 
 # Production stage
 FROM node:18-alpine AS runner
 
 WORKDIR /app
 
-# Install OpenSSL in production
 RUN apk add --no-cache openssl
 
-# Copy necessary files from builder
-COPY --from=builder /app/apps/genny.dev/next.config.js ./
-COPY --from=builder /app/apps/genny.dev/package.json ./
+# Copy build artifacts
+COPY --from=builder /app/apps/genny.dev/next.config.js /app/apps/genny.dev/package.json ./
 COPY --from=builder /app/apps/genny.dev/.next ./.next
 COPY --from=builder /app/apps/genny.dev/public ./public
-
-# Copy node_modules and built packages
 COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/packages/rehype-plugins/dist ./packages/rehype-plugins/dist
-COPY --from=builder /app/packages/remark-plugins/dist ./packages/remark-plugins/dist
+COPY --from=builder /app/packages/*/dist ./packages/
 
-# Set production environment variables
-ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_ENV=production \
+    NEXT_TELEMETRY_DISABLED=1
 
 EXPOSE 3000
 
-# Start the Next.js application
 CMD ["./node_modules/.bin/next", "start"]
