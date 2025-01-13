@@ -16,30 +16,43 @@ ENV NODE_ENV=production
 WORKDIR /app
 
 # Install system dependencies
-RUN apk add --no-cache python3 make g++ git
+RUN apk add --no-cache \
+    python3 \
+    make \
+    g++ \
+    git \
+    curl
 
-# Install pnpm and turbo globally
-RUN npm install -g pnpm turbo
+# Install pnpm
+RUN curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
 
-# Copy package files
-COPY package.json pnpm-lock.yaml turbo.json ./
+# Copy workspace files first
+COPY pnpm-workspace.yaml ./
+COPY package.json pnpm-lock.yaml ./
+
+# Copy package configurations
 COPY packages/rehype-plugins/package.json ./packages/rehype-plugins/
 COPY packages/remark-plugins/package.json ./packages/remark-plugins/
 COPY apps/genny.dev/package.json ./apps/genny.dev/
 
-# Install dependencies
+# Install all dependencies
 RUN pnpm install --frozen-lockfile
 
-# Copy source code
-COPY . .
+# Copy source files
+COPY packages/rehype-plugins ./packages/rehype-plugins
+COPY packages/remark-plugins ./packages/remark-plugins
+COPY apps/genny.dev ./apps/genny.dev
 
-# Clean existing builds
-RUN rm -rf apps/genny.dev/.next
-RUN rm -rf packages/*/dist
-RUN rm -rf node_modules/.cache
+# Build packages individually
+RUN cd packages/rehype-plugins && \
+    pnpm build || (echo "rehype-plugins build failed" && exit 1)
 
-# Build the project
-RUN pnpm build
+RUN cd packages/remark-plugins && \
+    pnpm build || (echo "remark-plugins build failed" && exit 1)
+
+# Build the main app
+RUN cd apps/genny.dev && \
+    pnpm build || (echo "genny.dev build failed" && exit 1)
 
 # Production stage
 FROM node:18-alpine AS runner
@@ -51,7 +64,11 @@ COPY --from=builder /app/apps/genny.dev/next.config.js ./
 COPY --from=builder /app/apps/genny.dev/package.json ./
 COPY --from=builder /app/apps/genny.dev/.next ./.next
 COPY --from=builder /app/apps/genny.dev/public ./public
+
+# Copy node_modules
 COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/packages/rehype-plugins/dist ./packages/rehype-plugins/dist
+COPY --from=builder /app/packages/remark-plugins/dist ./packages/remark-plugins/dist
 
 # Set production environment variables
 ENV NODE_ENV=production
@@ -59,5 +76,5 @@ ENV NEXT_TELEMETRY_DISABLED=1
 
 EXPOSE 3000
 
-# Start the production server
-CMD ["node_modules/.bin/next", "start"]
+# Start the Next.js application
+CMD ["./node_modules/.bin/next", "start"]
