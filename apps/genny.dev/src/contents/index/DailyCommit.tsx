@@ -99,20 +99,21 @@ export default function DailyCommit() {
   return (
     <Wrapper>
       <div className="w-full space-y-4">
-        {reposWithCommits?.commits?.map((repo, index) => (
-          // const isMultipleCommits = repo.commits.length > 1;
-          // const latestCommit = repo.commits[0];
+        {reposWithCommits?.commits &&
+          reposWithCommits?.commits?.map((repo, index) => (
+            // const isMultipleCommits = repo.commits.length > 1;
+            // const latestCommit = repo.commits[0];
 
-          <GitActivityCard
-            // eslint-disable-next-line react/no-array-index-key
-            key={index}
-            type="committed"
-            title={repo.message}
-            subtitle={repo.author}
-            date={dayjs(repo.date).format('DD/MM/YYYY HH:mm')}
-            onPrimaryClick={() => window.open(repo.url, '_blank')}
-          />
-        ))}
+            <GitActivityCard
+              // eslint-disable-next-line react/no-array-index-key
+              key={index}
+              type="committed"
+              title={repo.message}
+              subtitle={repo.author}
+              date={dayjs(repo.date).format('DD/MM/YYYY HH:mm')}
+              onPrimaryClick={() => window.open(repo.url, '_blank')}
+            />
+          ))}
       </div>
     </Wrapper>
   );

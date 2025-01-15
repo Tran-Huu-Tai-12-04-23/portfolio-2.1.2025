@@ -5,17 +5,16 @@ FROM node:18-alpine
 ARG DATABASE_URL
 ARG SALT_IP_ADDRESS
 ARG NEXT_PUBLIC_GITHUB_TOKEN
+ARG NEXT_PUBLIC_GITHUB_USERNAME
 
 # Convert ARG to ENV
 ENV DATABASE_URL=$DATABASE_URL
 ENV SALT_IP_ADDRESS=$SALT_IP_ADDRESS
 ENV NEXT_PUBLIC_GITHUB_TOKEN=$NEXT_PUBLIC_GITHUB_TOKEN
+ENV NEXT_PUBLIC_GITHUB_USERNAME=$NEXT_PUBLIC_GITHUB_USERNAME
 
 # Set working directory
 WORKDIR /app
-
-# Install build dependencies
-RUN apk add --no-cache python3 make g++
 
 # Copy package files first (for better caching)
 COPY package.json pnpm-lock.yaml turbo.json ./
@@ -47,4 +46,4 @@ RUN cd packages/remark-plugins && pnpm install && pnpm build || true
 EXPOSE 3000
 
 # Start the production server for the main app
-CMD ["pnpm", "--filter", "genny.dev", "start"]
+CMD ["pnpm", "start"]
