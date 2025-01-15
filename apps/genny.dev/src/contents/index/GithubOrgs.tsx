@@ -3,22 +3,16 @@ import { useEffect, useState } from 'react';
 
 import { AnimatedTestimonials } from '@/components/animates-ui/testimonials';
 
+import { getUserOrgs } from '@/services/git.service';
+
 export function GithubOrgs() {
   const [data, setData] = useState([]);
 
-  const token = process.env.GITHUB_TOKEN;
-
   useEffect(() => {
-    fetch('https://api.github.com/user/orgs', {
-      headers: {
-        Authorization: `token ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((resData) => {
-        setData(resData);
-      });
-  }, [token]);
+    getUserOrgs().then((res) => {
+      setData(res);
+    });
+  }, []);
 
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment

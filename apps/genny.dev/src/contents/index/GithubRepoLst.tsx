@@ -8,6 +8,7 @@ import SectionTitle from '@/components/sections/SectionTitle';
 import UserCommitChart from '@/components/user-chart-commit';
 
 import TodoItem from '@/contents/index/Cards/TodoItem';
+import { getRepoLst } from '@/services/git.service';
 
 import type { TodoItemState } from '@/contents/index/Cards/TodoItem';
 
@@ -135,48 +136,20 @@ function GithubRepoLst() {
     max: 1,
     currentPage: 1,
   });
-  const owner = 'Tran-Huu-Tai-12-04-23'; // Tên người dùng
-  const repo = 'course-edu-api'; // Tên repo
-  const token =
-    process.env.GITHUB_TOKEN ||
-    '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';
-
+  const owner = process.env.NEXT_PUBLIC_GITHUB_USERNAME;
+  const token = process.env.NEXT_PUBLIC_GITHUB_TOKEN;
   useEffect(() => {
-    fetch('https://api.github.com/users/tran-huu-tai-12-04-23/repos')
-      .then((res) => res.json())
-      .then((resData) => {
-        setData(resData);
-        setCurrentState(resData[0]);
-        setPaginationState({
-          min: 1,
-          max: Math.ceil(resData.length / 3),
-          currentPage: 1,
-        });
-        fetch('https://api.github.com/user/repos', {
-          headers: {
-            Authorization: `token ${token}`,
-          },
-        })
-          .then((res) => res.json())
-          .then((resData2) => {
-            if (resData2) {
-              const lstData = [...resData, ...resData2];
-              setData(lstData);
-              setRepoState({
-                private: resData2?.length,
-                public: resData?.length,
-                total: lstData?.length,
-              });
-              setCurrentState(resData[0]);
-              setPaginationState({
-                min: 1,
-                max: Math.ceil(lstData.length / 3),
-                currentPage: 1,
-              });
-            }
-          });
+    getRepoLst().then((res) => {
+      setRepoState({
+        private: res.private,
+        public: res.public,
+        total: res.total,
       });
-  }, [token]);
+      setPaginationState(res.paginationState);
+      setCurrentState(res.currentState);
+      setData(res.repos);
+    });
+  }, []);
 
   return (
     <>
@@ -279,7 +252,7 @@ function GithubRepoLst() {
       >
         <UserCommitChart
           owner={owner}
-          repo={currentState?.name || repo}
+          repo={currentState?.name}
           token={token}
         />
       </div>

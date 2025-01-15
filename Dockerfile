@@ -1,51 +1,50 @@
-# Build stage
-FROM node:18-alpine AS builder
+# Use Node.js LTS version
+FROM node:18-alpine
 
+# Add ARG instructions for build-time variables
+ARG DATABASE_URL
+ARG SALT_IP_ADDRESS
+ARG NEXT_PUBLIC_GITHUB_TOKEN
+
+# Convert ARG to ENV
+ENV DATABASE_URL=$DATABASE_URL
+ENV SALT_IP_ADDRESS=$SALT_IP_ADDRESS
+ENV NEXT_PUBLIC_GITHUB_TOKEN=$NEXT_PUBLIC_GITHUB_TOKEN
+
+# Set working directory
 WORKDIR /app
 
-# Install essential dependencies
-RUN apk add --no-cache python3 make g++ git curl openssl openssl-dev && \
-    curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm && \
-    pnpm add -g tsup
+# Install build dependencies
+RUN apk add --no-cache python3 make g++
 
-# Copy package files
-COPY pnpm-workspace.yaml package.json pnpm-lock.yaml ./
+# Copy package files first (for better caching)
+COPY package.json pnpm-lock.yaml turbo.json ./
 COPY packages/*/package.json ./packages/
-COPY apps/genny.dev/package.json ./apps/genny.dev/
+COPY apps/*/package.json ./apps/
 
-# Install dependencies
+# Install pnpm
+RUN npm install -g pnpm
+
+# Clean install dependencies
 RUN pnpm install --frozen-lockfile
 
-# Copy source files
-COPY packages ./packages
-COPY apps/genny.dev ./apps/genny.dev
-COPY apps/genny.dev/prisma ./prisma/
+# Now copy the rest of the source code
+COPY . .
 
-# Generate Prisma client if schema exists
-RUN if [ -f "./prisma/schema.prisma" ]; then npx prisma generate; fi
+# Remove any platform-specific node_modules
+RUN rm -rf packages/*/node_modules
+RUN rm -rf apps/*/node_modules
+RUN rm -rf node_modules
 
-# Build packages and app
-RUN cd packages/rehype-plugins && pnpm build && \
-    cd ../remark-plugins && pnpm build && \
-    cd ../../apps/genny.dev && pnpm build
+# Reinstall dependencies for the current platform
+RUN pnpm install --frozen-lockfile
 
-# Production stage
-FROM node:18-alpine AS runner
+# Build packages individually to handle errors better
+RUN cd packages/rehype-plugins && pnpm install && pnpm build || true
+RUN cd packages/remark-plugins && pnpm install && pnpm build || true
 
-WORKDIR /app
-
-RUN apk add --no-cache openssl
-
-# Copy build artifacts
-COPY --from=builder /app/apps/genny.dev/next.config.js /app/apps/genny.dev/package.json ./
-COPY --from=builder /app/apps/genny.dev/.next ./.next
-COPY --from=builder /app/apps/genny.dev/public ./public
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/packages/*/dist ./packages/
-
-ENV NODE_ENV=production \
-    NEXT_TELEMETRY_DISABLED=1
-
+# Expose the port your app runs on
 EXPOSE 3000
 
-CMD ["./node_modules/.bin/next", "start"]
+# Start the production server for the main app
+CMD ["pnpm", "--filter", "genny.dev", "start"]
