@@ -32,7 +32,7 @@ jobs:
           build-args: |
             DATABASE_URL=${{ secrets.DATABASE_URL }}
             SALT_IP_ADDRESS=${{ secrets.SALT_IP_ADDRESS }}
-            NEXT_PUBLIC_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
+            NEXT_PUBLIC_GITHUB_TOKEN=${{ secrets.NEXT_PUBLIC_GITHUB_TOKEN }}
 
       - name: Install sshpass
         run: sudo apt-get install -y sshpass
