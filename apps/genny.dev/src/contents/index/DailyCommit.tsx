@@ -1,5 +1,4 @@
 import clsx from 'clsx';
-import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 
 import { getReposWithCommitsToday } from '@/services/git.service';
@@ -83,23 +82,23 @@ export default function DailyCommit() {
     );
   }
 
-  if (reposWithCommits?.commits.length === 0) {
-    return (
-      <Wrapper>
-        <GitActivityCard
-          type="untracked"
-          title="No Activity"
-          subtitle="No commits found for today"
-          date=""
-        />
-      </Wrapper>
-    );
-  }
+  // if (reposWithCommits?.commits.length === 0) {
+  //   return (
+  //     <Wrapper>
+  //       <GitActivityCard
+  //         type="untracked"
+  //         title="No Activity"
+  //         subtitle="No commits found for today"
+  //         date=""
+  //       />
+  //     </Wrapper>
+  //   );
+  // }
 
   return (
     <Wrapper>
       <div className="w-full space-y-4">
-        {reposWithCommits?.commits &&
+        {/* {reposWithCommits?.commits &&
           reposWithCommits?.commits?.map((repo, index) => (
             // const isMultipleCommits = repo.commits.length > 1;
             // const latestCommit = repo.commits[0];
@@ -113,7 +112,7 @@ export default function DailyCommit() {
               date={dayjs(repo.date).format('DD/MM/YYYY HH:mm')}
               onPrimaryClick={() => window.open(repo.url, '_blank')}
             />
-          ))}
+          ))} */}
       </div>
     </Wrapper>
   );
