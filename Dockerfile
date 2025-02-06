@@ -1,5 +1,5 @@
 # Use Node.js LTS version
-FROM node:18-alpine
+FROM node:18-buster
 
 # Add ARG instructions for build-time variables
 ARG DATABASE_URL
